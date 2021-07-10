@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-p-pink: #fddbcf;
+  --color-p-red-light: #ff7a4f;
+  --color-p-icon: #5a9b79;
+  --color-p-yellow: #ffcc3e;
+}
+
+input.form-control:focus {
+  border-color: var(--color-p-red-light) !important;
+}

@@ -1,0 +1,96 @@
+.signin-page {
+  height: 100vh;
+  background-image: url('../assets/images/signinBg.svg');
+  background-position: top center;
+}
+.signin-page .signin-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.signin-page .signin-heading span {
+  display: block;
+  margin-top: 10px;
+  font-size: 1.5rem;
+  margin-right: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  color: var(--color-p-red-light);
+}
+.signin-page .signin-heading img {
+  width: 100px;
+}
+.signin-page .form-signin {
+  max-width: 500px;
+  box-shadow: 3px 20px 40px rgba(0, 0, 0, 0.2);
+}
+.signin-page .form-signin input {
+  max-width: 100%;
+  width: 500px;
+  border: none;
+  padding-left: 40px;
+  border-radius: 10px;
+}
+.signin-page .form-heading {
+  background-color: var(--color-p-red-light);
+  font-family: 'Montserrat', sans-serif;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-weight: bold;
+  color: #fff;
+}
+.signin-page .form-signin-body {
+  padding: 20px;
+  border: var(--color-p-red-light) solid 1px;
+}
+.signin-page .form-input {
+  position: relative;
+  padding: 5px 0;
+}
+.signin-page .form-input label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+}
+.signin-page .form-input label svg {
+  fill: var(--color-p-icon);
+}
+
+.signin-page .form-signin-button button {
+  border-radius: 40px;
+  font-size: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+}
+.signin-page .form-signin-button .btn-signin {
+  background-color: var(--color-p-red-light);
+}
+.signin-page .form-signin .form-error {
+  position: absolute;
+  top: -10px;
+  left: 50px;
+  font-size: 10px;
+  color: red;
+}
+.signin-page .form-signin-button .btn-signin:hover {
+  background-color: var(--color-p-yellow);
+}
+.signin-page .form-signin-button .btn-signup {
+  border: var(--color-p-red-light) 1px solid;
+  color: var(--color-p-red-light);
+}
+.signin-page .form-signin-button .btn-signup:hover {
+  color: white;
+  background-color: var(--color-p-red-light);
+}
+
+.logo-bottom-corner {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  width: 70px;
+}
+.logo-bottom-corner img {
+  max-width: 100%;
+}
