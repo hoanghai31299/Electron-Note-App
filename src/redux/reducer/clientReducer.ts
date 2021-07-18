@@ -1,16 +1,14 @@
+import { SET_USER } from './../action';
 import { IClient } from '../../interface';
 
 const initState: IClient = {
-  displayName: '',
   email: '',
-  connect: [],
-  photoUrl: '',
+  id: '',
 };
-export default function filtersReducer(
-  state: IClient = initState,
-  action: any
-) {
+export default function clientReducer(state: IClient = initState, action: any) {
   switch (action.type) {
+    case SET_USER:
+      return action.payload;
     default:
       return state;
   }

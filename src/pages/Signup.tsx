@@ -7,11 +7,15 @@ import LoaderButton from '../components/Common/LoaderButton';
 import { IMainState, PAGE_VIEW } from '../interface';
 import {
   actionChangeLoginStatus,
+  actionChangePageView,
   actionLoginError,
+  actionSetUser,
   LogginStatus,
 } from '../redux/action';
 import Logo from '../assets/images/logo2.svg';
-import { signupFireBase } from '../firebase/authenticate';
+import { signupFireBase } from '../database/authenticate';
+import { useHistory } from 'react-router-dom';
+import LogoPaiir from '../components/Common/LogoPaiir';
 const regex =
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const regexName = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/;
@@ -20,26 +24,23 @@ function Signup() {
     email: '',
     password: '',
     confirmPwd: '',
-    displayName: '',
     emailError: false,
     passwordError: false,
-    nameError: false,
   });
   const dispatch = useDispatch();
   const status = useSelector((state: IMainState) => state.status);
+  const history = useHistory();
   const { loginMessage, loginStatus } = status;
   const handleOnChange = (event: any) => {
     const field = event.target.id;
     setFormSignup({ ...formSignup, [field]: event.target.value });
   };
   const validateForm = () => {
-    const checkName = regexName.test(formSignup.displayName);
     const checkPassword = formSignup.password === formSignup.confirmPwd;
     return (
       regex.test(formSignup.email) &&
       formSignup.password.length > 5 &&
-      checkPassword &&
-      checkName
+      checkPassword
     );
   };
   const validateEmail = () => {
@@ -52,25 +53,18 @@ function Signup() {
       passwordError: !(formSignup.password.length > 5),
     });
   };
-  const validateName = () => {
-    const checkName = regexName.test(formSignup.displayName);
-
-    setFormSignup({
-      ...formSignup,
-      nameError: !checkName,
-    });
-  };
   const handleSignup = async () => {
     dispatch(actionChangeLoginStatus(LogginStatus.LOGGING_IN));
     try {
-      const { email, password, displayName } = formSignup;
-      const user = await signupFireBase(email, password);
-      await user?.updateProfile({ displayName });
+      const { email, password } = formSignup;
+      await signupFireBase(email, password);
     } catch (error) {
-      console.log({ errorSignup: error.message });
       dispatch(actionChangeLoginStatus(LogginStatus.SIGNUP_ERROR));
       dispatch(actionLoginError(error?.message || 'Có gì đó không ổn'));
     }
+  };
+  const handleSigninClick = () => {
+    history.push('/signin');
   };
   return (
     <div className="signin-page  d-flex align-items-center">
@@ -103,22 +97,6 @@ function Signup() {
                 />
               </div>
               <div className="form-input d-flex mb-2 align-items-center">
-                {formSignup.nameError && (
-                  <span className="form-error">Tên không hợp lệ</span>
-                )}
-                <label htmlFor="email">
-                  <BiUser size={24} />
-                </label>
-                <input
-                  className="form-control"
-                  placeholder="Name"
-                  type="text"
-                  id="displayName"
-                  onChange={handleOnChange}
-                  onBlur={validateName}
-                />
-              </div>
-              <div className="form-input d-flex mb-2 align-items-center">
                 {formSignup.passwordError && (
                   <span className="form-error">Password không đủ độ dài</span>
                 )}
@@ -140,7 +118,7 @@ function Signup() {
                 </label>
                 <input
                   className="form-control"
-                  placeholder="Type your email..."
+                  placeholder="Confirm password"
                   type="password"
                   id="confirmPwd"
                   onChange={handleOnChange}
@@ -157,14 +135,16 @@ function Signup() {
                 >
                   Đăng ký
                 </LoaderButton>
-                <button className="btn btn-signup">Đăng nhập</button>
+                <button className="btn btn-signup" onClick={handleSigninClick}>
+                  Đăng nhập
+                </button>
               </div>
             </div>
           </div>
         </div>
-        <div className="logo-bottom-corner">
-          <img src={Logo} alt="logo" />
-        </div>
+      </div>
+      <div className="logo-bottom-corner">
+        <LogoPaiir size="md" />
       </div>
     </div>
   );

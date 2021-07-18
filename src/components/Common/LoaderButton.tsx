@@ -18,7 +18,7 @@ function LoaderButton({
     <div className="loader-button">
       <button
         onClick={onClick}
-        className={`btn btn-primary ${btnClass}`}
+        className={`btn btn-pink ${btnClass}`}
         disabled={disabled}
       >
         {loading ? <Spinner animation="border" size="sm" /> : children}

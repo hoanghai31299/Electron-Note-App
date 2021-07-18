@@ -2,13 +2,11 @@ import React from 'react';
 import firebase from 'firebase';
 import { useDispatch, useSelector } from 'react-redux';
 // Configure FirebaseUI.
-import Logo from '../assets/images/logo2.svg';
-import Paiir from '../assets/images/PAIIR.svg';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import '../styles/signin.global.css';
 import LoaderButton from '../components/Common/LoaderButton';
-import { signinFireBase } from '../firebase/authenticate';
+import { signinFireBase } from '../database/authenticate';
 import { IMainState, PAGE_VIEW } from '../interface';
 import {
   actionChangeLoginStatus,
@@ -16,6 +14,8 @@ import {
   actionLoginError,
   LogginStatus,
 } from '../redux/action';
+import LogoPaiir from '../components/Common/LogoPaiir';
+import { useHistory } from 'react-router-dom';
 function Signin() {
   const status = useSelector((state: IMainState) => state.status);
   const dispatch = useDispatch();
@@ -30,6 +30,7 @@ function Signin() {
     const field = event.target.id;
     setFormSignin({ ...formSignin, [field]: event.target.value });
   };
+  const history = useHistory();
   const validateForm = () => {
     const regex =
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -47,21 +48,20 @@ function Signin() {
       passwordError: !(formSignin.password.length > 5),
     });
   };
-  const handleSignin = () => {
+  const handleSignin = async () => {
     dispatch(actionChangeLoginStatus(LogginStatus.LOGGING_IN));
     const { email, password } = formSignin;
-    signinFireBase(email, password)
-      .then((user) => {
-        console.log(user);
-      })
-      .catch((error) => {
-        dispatch(actionChangeLoginStatus(LogginStatus.LOGGIN_ERROR));
-        dispatch(actionLoginError(error?.message || 'Có điều gì đó không ổn'));
-      });
+    try {
+      await signinFireBase(email, password);
+    } catch (error) {
+      dispatch(actionChangeLoginStatus(LogginStatus.LOGGIN_ERROR));
+      dispatch(actionLoginError(error?.message || 'Có điều gì đó không ổn'));
+    }
   };
   const handleSignupClick = () => {
-    dispatch(actionChangePageView(PAGE_VIEW.SIGNUP));
+    history.push('/signup');
   };
+
   return (
     <div className="signin-page  d-flex align-items-center">
       <div className="container">
@@ -129,7 +129,7 @@ function Signin() {
         </div>
       </div>
       <div className="logo-bottom-corner">
-        <img src={Logo} alt="logo" />
+        <LogoPaiir size="md" />
       </div>
     </div>
   );

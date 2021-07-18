@@ -1,10 +1,23 @@
 import { LogginStatus } from '../redux/action';
 
 export interface IClient {
-  displayName: string;
+  id: string;
+  displayName?: string;
   email: string;
-  photoUrl: string;
-  connect: [string] | [];
+  photoURL?: string;
+  connect?: string[];
+  bio?: string;
+}
+
+export interface INote {
+  title: string;
+  content: string;
+  createdAt: number;
+  updatedAt: number;
+  deletedAt?: number;
+  author: string;
+  color?: string;
+  pin?: boolean;
 }
 
 export interface IMainState {

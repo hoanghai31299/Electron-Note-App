@@ -1,29 +1,22 @@
-import React from 'react';
-import firebase from 'firebase';
-import { useDispatch } from 'react-redux';
-import { actionChangeLoginStatus, LogginStatus } from '../redux/action';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actionChangeLoginStatus, LogginStatus } from "../redux/action";
+import { signOut } from "../database/authenticate";
+import { IMainState } from "../interface";
+import NoteHeader from "../components/Note/NoteHeader";
+import "../styles/Note/note.global.css";
+import NoteContextContainer from "../components/Note/NoteContext";
+import NoteBody from "../components/Note/NoteBody";
+
 function Note() {
-  const dispatch = useDispatch();
-  const handleSignout = () => {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        dispatch(actionChangeLoginStatus(LogginStatus.LOGOUT));
-      })
-      .catch((error) => {
-        // An error happened.
-        console.log(error);
-      });
-  };
   return (
-    <div>
-      <div>
-        <button className="btn btn-primary" onClick={handleSignout}>
-          Đăng xuất
-        </button>
+    <div className="notes-page">
+      <div className="container-fluid">
+        <NoteContextContainer>
+          <NoteHeader />
+          <NoteBody />
+        </NoteContextContainer>
       </div>
-      Helle I'm note page
     </div>
   );
 }

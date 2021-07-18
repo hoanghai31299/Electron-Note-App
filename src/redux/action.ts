@@ -1,9 +1,10 @@
+import { IClient } from './../interface/index';
 import { PAGE_VIEW } from '../interface';
 
 export const CHANGE_PAGE_VIEW = 'CHANGE_PAGE_VIEW';
 export const CHANGE_LOGGIN_STATUS = 'CHANGE_LOGGIN_STATUS';
 export const LOGGIN_ERROR = 'LOGGIN_ERROR';
-
+export const SET_USER = 'SET_USER';
 export enum LogginStatus {
   LOGGED = 'LOGGED',
   LOGOUT = 'LOGOUT',
@@ -30,5 +31,12 @@ export const actionLoginError = (error: string) => {
   return {
     type: LOGGIN_ERROR,
     payload: error,
+  };
+};
+
+export const actionSetUser = (user: IClient) => {
+  return {
+    type: SET_USER,
+    payload: user,
   };
 };

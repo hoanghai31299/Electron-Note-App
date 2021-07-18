@@ -1,0 +1,39 @@
+.logo-paiir span {
+  color: var(--color-p-red-light);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.icon-hamburger svg {
+  fill: var(--color-p-red-light);
+}
+
+nav.note-header {
+  -webkit-box-shadow: -1px 10px 15px -8px rgba(0, 0, 0, 0.2);
+  box-shadow: -1px 10px 10px -8px rgba(0, 0, 0, 0.2);
+}
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.icon-search {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+}
+
+@media screen and (max-width: 576px) {
+  /* .search-input {
+    display: none;
+  } */
+  #root > div > div > div > div.header-container > nav > div.search-bar {
+    display: none !important;
+  }
+  /* .icon-search {
+    right: 20px;
+    left: unset;
+  } */
+}

@@ -4,6 +4,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+@import '~antd/dist/antd.css';
+
+body * {
+  font-family: 'Montserrat', sans-serif;
+}
 
 :root {
   --color-p-pink: #fddbcf;
@@ -14,4 +19,17 @@
 
 input.form-control:focus {
   border-color: var(--color-p-red-light) !important;
+}
+
+.btn-pink {
+  background-color: var(--color-p-red-light);
+  color: white;
+}
+
+.btn-pink:hover {
+  color: #f1f1f1;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
